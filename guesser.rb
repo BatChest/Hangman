@@ -5,8 +5,11 @@ class Guesser
     @host = host
   end
 
+  # Gets user input and checks if its a single character
+  # If not single char then gets prompted until meets criteria
+  # if the input is incorrect then pushes it into an array
+  # returns the user input
   def get_move()
-    # letter_guess = nil
 
     puts "Please enter a single letter:"
     player_input = gets.chomp
@@ -25,10 +28,13 @@ class Guesser
     return player_input
   end
 
+  # Checks if the user input length is 1
   def check_valid_move(guess)
     guess.length == 1
   end
 
+  # If the guess was correct then display the new current dispplay with the correct guess
+  # If not, then we display our incorrect guesses with the old display
   def receive_feedback(correct, current_display)
     if correct == true
       puts current_display

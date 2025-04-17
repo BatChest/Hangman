@@ -9,7 +9,6 @@ def set_up_game
   guesser = Guesser.new("Player", host)
 
   random_word = host.randomly_select_word(file_path)
-  puts random_word
 
   game = Game.new(host, guesser)
 

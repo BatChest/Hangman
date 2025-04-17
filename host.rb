@@ -37,6 +37,9 @@ class Host
     end
   end
 
+  # Goes through the solution array
+  # If the guessed letter is in the solution then we replace
+  # the empty space with the guessed letter
   def check_guess_letter(letter)
     found = false
     @solution_array.each_with_index do |char, index|
@@ -52,8 +55,15 @@ class Host
     @display_array
   end
 
+  # Checks if the current display array have any "_" chars
   def word_guessed?
     !@display_array.include?("_")
+  end
+
+  # shows the answer
+  # ONLY AT THE END OF GAME
+  def reveal_answer
+    @solution_array.join
   end
 
   private
