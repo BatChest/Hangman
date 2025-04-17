@@ -1,7 +1,8 @@
 class Guesser
-  def initialize(name)
+  def initialize(name, host)
     @name = name
     @previous_guesses = []
+    @host = host
   end
 
   def get_move()
@@ -17,6 +18,10 @@ class Guesser
       player_input = gets.chomp
       valid = check_valid_move(player_input)
     end
+    if @host.check_guess_letter(player_input) == false
+      @previous_guesses << player_input
+    end
+
     return player_input
   end
 
@@ -26,6 +31,9 @@ class Guesser
 
   def receive_feedback(correct, current_display)
     if correct == true
+      puts current_display
+    elsif correct == false
+      puts "Incorrect guesses: #{@previous_guesses.join(', ')}"
       puts current_display
     end
   end

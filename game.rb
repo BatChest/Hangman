@@ -5,18 +5,16 @@ class Game
   end
 
   def play(random_word)
-    rounds = 0
+    rounds = 11
     loop do
-      rounds += 1
-      puts "Round #{rounds}:"
+      rounds -= 1
+      puts "Guess #{rounds}:"
       # line_numbers = random_word.length
       guess = @guesser.get_move
-      puts guess
       result = @host.check_guess_letter(guess)
-      puts result
       @guesser.receive_feedback(result, @host.display)
 
-      if rounds == 11
+      if rounds == 0
         puts "You Loose"
         break
       end
