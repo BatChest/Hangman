@@ -1,6 +1,7 @@
 class Guesser
   def initialize(name)
     @name = name
+    @previous_guesses = []
   end
 
   def get_move()
@@ -22,4 +23,11 @@ class Guesser
   def check_valid_move(guess)
     guess.length == 1
   end
+
+  def receive_feedback(correct, current_display)
+    if correct == true
+      puts current_display
+    end
+  end
+
 end

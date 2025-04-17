@@ -21,6 +21,10 @@ class Host
       # Select the random word from the file
       random_word = valid_words.sample
 
+      # Turn the solution word in an array of characters
+      @solution_array = random_word.chars
+      @display_array = "_" * @solution_array.length
+
       return random_word
 
     # error handling, make sure the file exists
@@ -31,6 +35,25 @@ class Host
       puts "Error: #{e.message}"
       return nil
     end
+  end
+
+  def check_guess_letter(letter)
+    found = false
+    @solution_array.each_with_index do |char, index|
+      if char == letter
+        @display_array[index] = letter
+        found = true
+      end
+    end
+    found
+  end
+
+  def display
+    @display_array
+  end
+
+  def word_guessed?
+    !@display_array.include?("_")
   end
 
   private
