@@ -1,6 +1,8 @@
 class Host
   def initialize(name)
     @name = name
+    @solution_array = []
+    @display_array = []
   end
 
   def randomly_select_word(file_path)
@@ -31,4 +33,8 @@ class Host
     end
   end
 
+  private
+  def solution
+    @solution_array
+  end
 end

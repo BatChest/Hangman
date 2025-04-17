@@ -5,9 +5,7 @@ require_relative 'host'
 
 def set_up_game
   file_path = '/mnt/d/VSstuff/repos/Hangman/google-10000-english-no-swears.txt'
-
   host = Host.new("Computer")
-
   guesser = Guesser.new("Player")
 
   random_word = host.randomly_select_word(file_path)
