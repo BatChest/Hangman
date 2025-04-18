@@ -23,6 +23,21 @@ class Guesser
     end
   end
 
+  # Too lazy so reused the get_input method but got rid of saving the previous guess
+  # This no longer saves the user input when answering the loading question
+  def get_yes_no_input(prompt:, error_msg:, &validation)
+    loop do
+      puts prompt
+      input = gets.chomp
+      if validation.call(input)
+        return input
+      else
+        puts error_msg
+      end
+    end
+  end
+
+
   # Here we are just asking for the user to guess a letter during each round
   # using the check_valid_move for checking for a valid input (1 char length)
   def get_move
@@ -37,7 +52,7 @@ class Guesser
   # Simply ask user if you want to save the game
   # Uses a custom lambda funciton that only accepts 'y' or 'n'
   def get_yes_no
-    get_input(
+    get_yes_no_input(
       prompt: "Would you like to save your game? (y/n):",
       error_msg: "Invalid input. Please enter 'y' or 'n'.",
       &lambda { |input| input.downcase =~ /^[yn]$/ }
