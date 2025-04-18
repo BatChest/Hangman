@@ -5,27 +5,56 @@ class Guesser
     @host = host
   end
 
+  def get_input(prompt:, error_msg:, &validation)
+    loop do
+      puts prompt
+      input = gets.chomp
+      if validation.call(input)
+        if @host && !@host.check_guess_letter(input)
+          @previous_guesses << input
+        end
+        return input
+      else
+        puts error_msg
+      end
+    end
+  end
+
   # Gets user input and checks if its a single character
   # If not single char then gets prompted until meets criteria
   # if the input is incorrect then pushes it into an array
   # returns the user input
   def get_move()
 
-    puts "Please enter a single letter:"
-    player_input = gets.chomp
+    # puts "Please enter a single letter:"
+    # player_input = gets.chomp
 
-    valid = check_valid_move(player_input)
+    # valid = check_valid_move(player_input)
 
-    until valid == true
-      puts "Please enter a SINGLE letter:"
-      player_input = gets.chomp
-      valid = check_valid_move(player_input)
-    end
-    if @host.check_guess_letter(player_input) == false
-      @previous_guesses << player_input
-    end
+    # until valid == true
+    #   puts "Please enter a SINGLE letter:"
+    #   player_input = gets.chomp
+    #   valid = check_valid_move(player_input)
+    # end
+    # if @host.check_guess_letter(player_input) == false
+    #   @previous_guesses << player_input
+    # end
 
-    return player_input
+    # return player_input
+    get_input(
+      prompt: "Please enter a single letter:",
+      error_msg: "Invalid input. Please enter a SINGLE letter.",
+      &method(:check_valid_move)
+    )
+  end
+
+  # Returns true for 'y', false for 'n'
+  def get_yes_no
+    get_input(
+      prompt: "Would you like to save your game? (y/n):",
+      error_msg: "Invalid input. Please enter 'y' or 'n'.",
+      &lambda { |input| input.downcase =~ /^[yn]$/ }
+    ).downcase == 'y'
   end
 
   # Checks if the user input length is 1
@@ -43,5 +72,4 @@ class Guesser
       puts current_display
     end
   end
-
 end
