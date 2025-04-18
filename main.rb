@@ -17,6 +17,11 @@ def set_up_game
   game.play(random_word)
 end
 
+# Before we start a game, ask if you wish to load a save file
+# If so then we create a new objects for the game state
+# And then we run the play method from game class with the saved objects from the file
+# This will let us play where we started
+# If choose not the load then we start a completely new game
 def load_game
   puts "Would you like to load a game? y/n"
   input = gets.chomp

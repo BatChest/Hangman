@@ -18,6 +18,9 @@ class Game
       @rounds -= 1
       puts "Guess #{@rounds}:"
 
+      # Before each round ask if we want to save our game
+      # get_yes_no returns true if yes and false if no
+      # Save the game and then end the program
       save_game = @guesser.get_yes_no
       if save_game == true
         check_if_save
@@ -28,6 +31,7 @@ class Game
       result = @host.check_guess_letter(guess)
       @guesser.receive_feedback(result, @host.display)
       game_over = check_for_winner
+
       if game_over == true
         break
       end
@@ -38,6 +42,8 @@ class Game
     end
   end
 
+  # Here we create a new class for the game_state that will save all our classes
+  # then we'll store that data into a file
   def check_if_save
     game_state = Game_State.new(@host, @guesser, @rounds)
     game_state.save("my_savegame.dat")
